@@ -7,11 +7,11 @@
 //
 
 #import "ExampleWKWebViewController.h"
-#import "WebViewJavascriptBridge.h"
+#import "WKWebViewJavascriptBridge.h"
 
 @interface ExampleWKWebViewController ()
 
-@property WebViewJavascriptBridge* bridge;
+@property WKWebViewJavascriptBridge* bridge;
 
 @end
 
@@ -23,8 +23,8 @@
     WKWebView* webView = [[NSClassFromString(@"WKWebView") alloc] initWithFrame:self.view.bounds];
     webView.navigationDelegate = self;
     [self.view addSubview:webView];
-    [WebViewJavascriptBridge enableLogging];
-    _bridge = [WebViewJavascriptBridge bridgeForWebView:webView];
+    [WKWebViewJavascriptBridge enableLogging];
+    _bridge = [WKWebViewJavascriptBridge bridgeForWebView:webView];
     [_bridge setWebViewDelegate:self];
     
     [_bridge registerHandler:@"testObjcCallback" handler:^(id data, WVJBResponseCallback responseCallback) {
@@ -56,6 +56,13 @@
     callbackButton.frame = CGRectMake(10, 400, 100, 35);
     callbackButton.titleLabel.font = font;
     
+    UIButton *callbackNotFoundButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [callbackNotFoundButton setTitle:@"Call js handler undefined" forState:UIControlStateNormal];
+    [callbackNotFoundButton addTarget:self action:@selector(callHandlerUndefined:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view insertSubview:callbackNotFoundButton aboveSubview:webView];
+    callbackNotFoundButton.frame = CGRectMake(210, 400, 100, 35);
+    callbackNotFoundButton.titleLabel.font = font;
+    
     UIButton* reloadButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [reloadButton setTitle:@"Reload webview" forState:UIControlStateNormal];
     [reloadButton addTarget:webView action:@selector(reload) forControlEvents:UIControlEventTouchUpInside];
@@ -68,6 +75,13 @@
     id data = @{ @"greetingFromObjC": @"Hi there, JS!" };
     [_bridge callHandler:@"testJavascriptHandler" data:data responseCallback:^(id response) {
         NSLog(@"testJavascriptHandler responded: %@", response);
+    }];
+}
+
+- (void)callHandlerUndefined:(id)sender {
+    id data = @{ @"greetingFromObjC": @"Hi there, JS!" };
+    [_bridge callHandler:@"callHandlerUndefined" data:data responseCallback:^(id response) {
+        NSLog(@"callHandlerUndefined responded: %@", response);
     }];
 }
 
