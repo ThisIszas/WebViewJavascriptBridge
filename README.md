@@ -1,6 +1,6 @@
 WebViewJavascriptBridge
 =======================
-
+Fork from https://github.com/marcuswestin/WebViewJavascriptBridge
 [![Circle CI](https://img.shields.io/circleci/project/github/marcuswestin/WebViewJavascriptBridge.svg)](https://circleci.com/gh/marcuswestin/WebViewJavascriptBridge)
 
 An iOS/OSX bridge for sending messages between Obj-C and JavaScript in WKWebViews, UIWebViews & WebViews.
@@ -32,14 +32,6 @@ WebViewJavascriptBridge is used by a range of companies and projects. This is a 
 
 Installation (iOS & OSX)
 ------------------------
-
-### Installation with CocoaPods
-Add this to your [podfile](https://guides.cocoapods.org/using/getting-started.html) and run `pod install` to install:
-
-```ruby
-pod 'WebViewJavascriptBridge', '~> 6.0'
-```
-
 ### Manual installation
 
 Drag the `WebViewJavascriptBridge` folder into your project.
