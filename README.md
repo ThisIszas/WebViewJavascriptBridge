@@ -5,31 +5,6 @@ WebViewJavascriptBridge
 An iOS/OSX bridge for sending messages between Obj-C and JavaScript in WKWebViews, UIWebViews & WebViews.
 - Fork from https://github.com/marcuswestin/WebViewJavascriptBridge
 
-Migration Guide
----------------
-
-When upgrading from v5.0.x to 6.0.x you will have to update the `setupWebViewJavascriptBridge` javascript snippet. See https://github.com/marcuswestin/WebViewJavascriptBridge#usage part 4).
-
-Who uses WebViewJavascriptBridge?
----------------------------------
-WebViewJavascriptBridge is used by a range of companies and projects. This is a small and incomplete sample list:
-
-- [Facebook Messenger](https://www.facebook.com/mobile/messenger)
-- [Facebook Paper](https://facebook.com/paper)
-- [Yardsale](http://www.getyardsale.com/)
-- [EverTrue](http://www.evertrue.com/)
-- [Game Insight](http://www.game-insight.com/)
-- [Sush.io](http://www.sush.io)
-- [Imbed](http://imbed.github.io/)
-- [CareZone](https://carezone.com)
-- [Hemlig](http://www.hemlig.co)
-- [Altralogica](http://www.altralogica.it)
-- [鼎盛中华](https://itunes.apple.com/us/app/ding-sheng-zhong-hua/id537273940?mt=8)
-- [FRIL](https://fril.jp)
-- [留白·WHITE](http://liubaiapp.com)
-- [BrowZine](http://thirdiron.com/browzine/)
-- ... & many more!
-
 Installation (iOS & OSX)
 ------------------------
 ### Manual installation
@@ -41,7 +16,7 @@ In the dialog that appears, uncheck "Copy items into destination group's folder"
 Examples
 --------
 
-See the `Example Apps/` folder. Open either the iOS or OSX project and hit run to see it in action.
+See the `Example Apps/` folder. Open the iOS project and hit run to see it in action.
 
 To use a WebViewJavascriptBridge in your own project:
 
