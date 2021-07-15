@@ -104,6 +104,14 @@ static int logMaxLength = 500;
             WVJBHandler handler = self.messageHandlers[message[@"handlerName"]];
             
             if (!handler) {
+                if (callbackId) {
+                    WVJBMessage* msg = @{
+                        @"responseId":callbackId,
+                        @"responseData":@{@"status": @404, @"message": @"nativeHandlerNotFound"}
+                    };
+                    
+                    [self _queueMessage:msg];
+                }
                 NSLog(@"WVJBNoHandlerException, No handler for message from JS: %@", message);
                 continue;
             }
