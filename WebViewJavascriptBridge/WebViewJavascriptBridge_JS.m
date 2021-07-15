@@ -98,6 +98,7 @@ NSString * WebViewJavascriptBridge_js() {
 				if (message.callbackId) {
 					var callbackResponseId = message.callbackId;
 					responseCallback = function(responseData) {
+                        /// js方法在执行回调时会触发这里, 会在这里通过改变iframe的url, 触发webview的delegate方法, 把responseData给传递到oc里
 						_doSend({ handlerName:message.handlerName, responseId:callbackResponseId, responseData:responseData });
 					};
 				}
@@ -105,6 +106,12 @@ NSString * WebViewJavascriptBridge_js() {
 				var handler = messageHandlers[message.handlerName];
 				if (!handler) {
 					console.log("WebViewJavascriptBridge: WARNING: no handler for message from ObjC:", message);
+                    
+                    if (message.callbackId) {
+                        var callbackResponseId = message.callbackId;
+                        _doSend({ handlerName:"", responseId:callbackResponseId, responseData:{"status": 404, "message": "jsHandlerNotFound"} });
+                    }
+                    
 				} else {
 					handler(message.data, responseCallback);
 				}

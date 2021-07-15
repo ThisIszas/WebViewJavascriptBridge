@@ -41,7 +41,7 @@ static int logMaxLength = 500;
     self.responseCallbacks = [NSMutableDictionary dictionary];
     _uniqueId = 0;
 }
-
+/// oc调用js
 - (void)sendData:(id)data responseCallback:(WVJBResponseCallback)responseCallback handlerName:(NSString*)handlerName {
     NSMutableDictionary* message = [NSMutableDictionary dictionary];
     
@@ -77,14 +77,17 @@ static int logMaxLength = 500;
         
         NSString* responseId = message[@"responseId"];
         if (responseId) {
+            /// 处理JS回调方法传回来的参数.
             WVJBResponseCallback responseCallback = _responseCallbacks[responseId];
             responseCallback(message[@"responseData"]);
             [self.responseCallbacks removeObjectForKey:responseId];
         } else {
+            /// js 调用OC方法
             WVJBResponseCallback responseCallback = NULL;
             NSString* callbackId = message[@"callbackId"];
             if (callbackId) {
                 responseCallback = ^(id responseData) {
+                    /// oc方法执行完后需要通过responseId在js里找到对应的callback,  传递callback params
                     if (responseData == nil) {
                         responseData = [NSNull null];
                     }
@@ -121,7 +124,7 @@ static int logMaxLength = 500;
         }
     }
 }
-
+//backup
 - (BOOL)isWebViewJavascriptBridgeURL:(NSURL*)url {
     if (![self isSchemeMatch:url]) {
         return NO;
@@ -174,7 +177,7 @@ static int logMaxLength = 500;
         [self _dispatchMessage:message];
     }
 }
-
+/// 将OC调用JS的参数, message id封装成messageJSON
 - (void)_dispatchMessage:(WVJBMessage*)message {
     NSString *messageJSON = [self _serializeMessage:message pretty:NO];
     [self _log:@"SEND" json:messageJSON];
